@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketFast - Reserva de Boletos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resumen {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            display: none;
+        }
+        .resumen h2 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TicketFast - Reserva de Boletos</h1>
+
+        <form id="reservaForm">
+            <div class="form-group">
+                <label for="email">Correo Electrónico:</label>
+                <input type="email"
+                       id="email"
+                       data-testid="input-email-cliente"
+                       required
+                       placeholder="ejemplo@correo.com">
+            </div>
+
+            <div class="form-group">
+                <label for="zona">Zona del Evento:</label>
+                <select id="zona" data-testid="select-zona-evento" required>
+                    <option value="">Seleccione una zona</option>
+                    <option value="VIP">VIP - $150.000</option>
+                    <option value="General">General - $50.000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad de Asientos:</label>
+                <input type="number"
+                       id="cantidad"
+                       data-testid="input-cantidad-asientos"
+                       min="1"
+                       required
+                       placeholder="1">
+            </div>
+
+            <button type="submit" data-testid="btn-confirmar-reserva">
+                Confirmar Reserva
+            </button>
+        </form>
+
+        <div class="resumen" id="resumen">
+            <h2>Reserva Confirmada</h2>
+            <p>Tu reserva ha sido confirmada exitosamente.</p>
+            <p>Total a pagar: <span class="total" data-testid="seccion-resumen-total" id="total"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('reservaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const zona = document.getElementById('zona').value;
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+
+            const precios = {
+                'VIP': 150000,
+                'General': 50000
+            };
+
+            const total = precios[zona] * cantidad;
+
+            // Formatear el número con punto como separador de miles
+            const totalFormateado = total.toLocaleString('es-CO');
+
+            document.getElementById('total').textContent = totalFormateado;
+            document.getElementById('resumen').style.display = 'block';
+
+            // Scroll suave hasta el resumen
+            document.getElementById('resumen').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
