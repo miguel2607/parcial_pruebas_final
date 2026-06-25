@@ -29,7 +29,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-test:5432/ticketfast_test
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
       SERVER_PORT: 8001
       SPRING_PROFILES_ACTIVE: test
     depends_on:
