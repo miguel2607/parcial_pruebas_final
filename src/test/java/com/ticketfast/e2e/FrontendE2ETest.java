@@ -82,16 +82,18 @@ public class FrontendE2ETest {
         btnConfirmar.click();
 
         // 4. Verificar que el resumen muestre el valor correcto usando espera dinamica
-        WebElement resumenTotal = wait.until(
+        wait.until(
             ExpectedConditions.textToBePresentInElementLocated(
                 By.cssSelector("[data-testid='seccion-resumen-total']"),
                 "150.000"
             )
         );
 
-        String textoResumen = driver.findElement(
+        WebElement resumenTotal = driver.findElement(
             By.cssSelector("[data-testid='seccion-resumen-total']")
-        ).getText();
+        );
+
+        String textoResumen = resumenTotal.getText();
 
         assertTrue(textoResumen.contains("150.000"),
                   "El resumen debe contener el valor formateado 150.000");
