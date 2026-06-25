@@ -35,3 +35,11 @@ services:
     depends_on:
       db-test:
         condition: service_healthy
+
+  frontend-test:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ticketfast-frontend-test
+    ports:
+      - "4200:4200"
